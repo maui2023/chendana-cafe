@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Chendana Cafe - Main</title>
+    <title>Chendana Cafe - Drink</title>
     <meta property="og:image" content="assets/img/cendana.jpg">
     <meta name="description" content="Best Relaxing Cafe">
     <meta property="og:type" content="website">
@@ -26,51 +26,44 @@
                     </svg></span><span>Chendana-Cafe</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-3">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#">Main</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./">Main</a></li>
                     <li class="nav-item"><a class="nav-link" href="food.php">Food</a></li>
-                    <li class="nav-item"><a class="nav-link" href="drink.php">Beverage</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Beverage </a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container py-4 py-xl-5">
-        <div class="row gy-4 row-cols-2 row-cols-md-4">
-            <div class="col">
-                <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
-                    <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"><i class="fas fa-lock-open"></i></div>
-                    <div class="px-3">
-                        <h2 class="fw-bold mb-0"><span id="demo">24+</span></h2>
-                        <p class="mb-0">Minutes Left</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
-                    <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"><i class="fas fa-chair"></i></div>
-                    <div class="px-3">
-                        <h2 class="fw-bold mb-0">+-<?=(rand(1,8))?></h2>
-                        <p class="mb-0">Free Seats</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
-                    <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"><i class="fas fa-hamburger"></i></div>
-                    <div class="px-3">
-                        <h2 class="fw-bold mb-0">15+</h2>
-                        <p class="mb-0">Food</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
-                    <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"><i class="fas fa-coffee"></i></div>
-                    <div class="px-3">
-                        <h2 class="fw-bold mb-0">12</h2>
-                        <p class="mb-0">Beverage</p>
-                    </div>
-                </div>
-            </div>
+        <h1 class="text-center">BEVERAGE</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "root";
+$dbname = "chendana";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM drink WHERE FoodYN ='Y' ORDER BY fid DESC ";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    echo "<div class='col-md-3'><img src='./assets/img/" . $row["FoodPicture"]. "' width='50%'><b> RM " . $row["FoodPrice"]. "</b><br>" . $row["FoodName"]. "<hr></div>";
+  }
+} else {
+  echo "0 results";
+}
+$conn->close();
+?>
         </div>
     </div>
     <section class="py-4 py-xl-5">
@@ -110,42 +103,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.js"></script>
     <script src="assets/js/Lightbox-Gallery.js"></script>
     <script src="assets/js/Simple-Slider.js"></script>
-    <?php
-//$tarikh = date("M d, Y h:i:s",strtotime('32 hour'));
-$tarikh = date("M d, Y", strtotime('1 day'));
-$masa = "18:00:00";
-$masanya =  $tarikh .", ".$masa;
-
-?>
-<script>
-// Set the date we're counting down to Jun 26, 2022 02:39:36
-var countDownDate = new Date("<?=$masanya?>").getTime();
-
-// Update the count down every 1 second
-var x = setInterval(function() {
-
-  // Get today's date and time
-  var now = new Date().getTime();
-    
-  // Find the distance between now and the count down date
-  var distance = countDownDate - now;
-    
-  // Time calculations for days, hours, minutes and seconds
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 ));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
-  // Output the result in an element with id="demo"
-  document.getElementById("demo").innerHTML = hours + "+";
-    
-  // If the count down is over, write some text 
-  if (distance < 0) {
-    clearInterval(x);
-    document.getElementById("demo").innerHTML = "OFF";
-  }
-}, 1000);
-</script>
 </body>
 
 </html>

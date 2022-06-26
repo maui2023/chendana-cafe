@@ -17,7 +17,7 @@ if($link === false){
 }
  
 // Attempt insert query execution
-$sql = "INSERT INTO food (FoodName, FoodPicture, FoodPrice, FoodDiscount, FoodYN) VALUES ('$FoodName', '$FoodPicture', '$FoodPrice', '$FoodDiscount', '$FoodYN')";
+$sql = "INSERT INTO drink (FoodName, FoodPicture, FoodPrice, FoodDiscount, FoodYN) VALUES ('$FoodName', '$FoodPicture', '$FoodPrice', '$FoodDiscount', '$FoodYN')";
 if(mysqli_query($link, $sql)){
     echo "Records inserted successfully.";
 } else{
