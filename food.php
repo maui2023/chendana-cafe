@@ -26,9 +26,9 @@
                     </svg></span><span>Chendana-Cafe</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-3">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Main</a></li>
-                    <li class="nav-item"><a class="nav-link" href="food.php">Food</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="drink.php">Beverage</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./">Main</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Food</a></li>
+                    <li class="nav-item"><a class="nav-link" href="drink.php">Beverage</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.php">About Us</a></li>
                 </ul>
             </div>
