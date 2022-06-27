@@ -34,36 +34,75 @@
             </div>
         </div>
     </nav>
+<!--DATABASE HERE-->
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "root";
+$dbname = "chendana";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM about ";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    $maps = $row["maps"];
+    $email = $row["email"];
+    $facebook = $row["facebook"];
+    $instagram = $row["instagram"];
+  }
+} else {
+  echo "Database Error!";
+}
+$conn->close();
+?>
+<!--END CODE HERE-->
     <div class="container py-4 py-xl-5">
         <div class="row gy-4 row-cols-2 row-cols-md-4">
             <div class="col">
                 <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
+                    <a href="<?=$maps?>">
                     <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"><i class="fas fa-map-marked-alt"></i></div>
                     <div class="px-3">
-LOCATION
+                    </a>
+LOCATION<br>80A, Jalan Kuantan, Titiwangsa, 53200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
+                    <a href="mailto:<?=$email?>">
                     <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"><i class="fas fa-mail-bulk"></i></div>
                     <div class="px-3">
+                    </a>
 EMAIL US
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
+                    <a href="<?=$facebook?>">
                     <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"><i class="fab fa-facebook"></i></div>
                     <div class="px-3">
+                    </a>
 FACEBOOK
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
+                    <a href="<?=$instagram?>">
                     <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"><i class="	fab fa-instagram"></i></div>
                     <div class="px-3">
+                    </a>
 INSTAGRAM
                     </div>
                 </div>

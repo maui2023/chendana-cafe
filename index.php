@@ -67,7 +67,7 @@
                 <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
                     <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"><i class="fas fa-coffee"></i></div>
                     <div class="px-3">
-                        <h2 class="fw-bold mb-0">12</h2>
+                        <h2 class="fw-bold mb-0">24+</h2>
                         <p class="mb-0">Beverage</p>
                     </div>
                 </div>

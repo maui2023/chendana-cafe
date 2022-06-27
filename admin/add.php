@@ -16,7 +16,8 @@ $tarikh = date("d-m-Y");
 <form action="insert.php" method="post">
     <div class="form-group">
         Food Name: <input type="text" class="form-control" name="FoodName"><br>
-        Food Picture: <input type="text" class="form-control" name="FoodPicture" value="-<?=$tarikh?>.jpg"><br>
+        Food Picture: <input type="text" class="form-control" name="FoodPicture" value="drink.png"><br>
+<!--        Food Picture: <input type="text" class="form-control" name="FoodPicture" value="-<?=$tarikh?>.jpg"><br>-->
         Food Price RM (0.00): <input type="number" class="form-control" name="FoodPrice"><br>
         Food Discount: <input type="text" class="form-control" name="FoodDiscount" value="0"><br>
         Food YN: <input type="text" class="form-control" name="FoodYN" value="Y"><br>
