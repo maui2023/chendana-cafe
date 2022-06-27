@@ -6,7 +6,7 @@
 
 ### Place
 
-![](https://github.com/maui2023/chendana-cafe/blob/core/assets/img/cendana.jpg)
+![](https://github.com/maui2023/chendana-cafe/blob/core/assets/img/cendana.jpg =250x)
 
 **Website**
 
