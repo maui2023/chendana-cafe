@@ -6,9 +6,7 @@
 
 ### Place
 
-![](https://github.com/maui2023/chendana-cafe/blob/core/assets/img/cendana.jpg)
-
-<img src="(https://github.com/maui2023/chendana-cafe/blob/core/assets/img/cendana.jpg)" width="48">
+![](https://github.com/maui2023/chendana-cafe/blob/core/assets/img/cendana1.jpg)
 
 **Website**
 
