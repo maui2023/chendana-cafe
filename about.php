@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Chendana Cafe - Drink</title>
+    <title>Chendana Cafe - About</title>
     <meta property="og:image" content="assets/img/cendana.jpg">
     <meta name="description" content="Best Relaxing Cafe">
     <meta property="og:type" content="website">
@@ -25,46 +25,49 @@
                         <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z"></path>
                     </svg></span><span>Chendana-Cafe</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-3">
-            <ul class="navbar-nav mx-auto">
+                <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link" href="#">Main</a></li>
                     <li class="nav-item"><a class="nav-link" href="food.php">Food</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="drink.php">Beverage</a></li>
-                    <li class="nav-item"><a class="nav-link" href="about.php">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="drink.php">Beverage</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="about.php">About Us</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container py-4 py-xl-5">
-        <h1 class="text-center">BEVERAGE</h1>
-    </div>
-    <div class="container">
-        <div class="row">
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "chendana";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT * FROM drink WHERE FoodYN ='Y' ORDER BY fid DESC ";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
-    echo "<div class='col-md-3'><img src='./assets/img/" . $row["FoodPicture"]. "' width='50%'><b> RM " . $row["FoodPrice"]. "</b><br>" . $row["FoodName"]. "<hr></div>";
-  }
-} else {
-  echo "0 results";
-}
-$conn->close();
-?>
+        <div class="row gy-4 row-cols-2 row-cols-md-4">
+            <div class="col">
+                <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
+                    <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"><i class="fas fa-map-marked-alt"></i></div>
+                    <div class="px-3">
+LOCATION
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
+                    <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"><i class="fas fa-mail-bulk"></i></div>
+                    <div class="px-3">
+EMAIL US
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
+                    <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"><i class="fab fa-facebook"></i></div>
+                    <div class="px-3">
+FACEBOOK
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
+                    <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"><i class="	fab fa-instagram"></i></div>
+                    <div class="px-3">
+INSTAGRAM
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <section class="py-4 py-xl-5">

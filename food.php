@@ -26,9 +26,10 @@
                     </svg></span><span>Chendana-Cafe</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-3">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="./">Main</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="#">Food</a></li>
-                    <li class="nav-item"><a class="nav-link" href="drink.php">Beverage</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Main</a></li>
+                    <li class="nav-item"><a class="nav-link" href="food.php">Food</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="drink.php">Beverage</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.php">About Us</a></li>
                 </ul>
             </div>
         </div>
@@ -73,9 +74,9 @@ $conn->close();
                     <h2 class="fw-bold mb-2"><strong>Subscribe to our offers</strong></h2>
                     <p class="mb-0">Get Special Price Everyday</p>
                 </div>
-                <form class="d-flex justify-content-center flex-wrap my-2" method="post">
-                    <div class="my-2"><input class="form-control" type="email" name="phone" placeholder="Whatsapp Number"></div>
-                    <div class="my-2"><button class="btn btn-primary ms-sm-2" type="submit">Subscribe </button></div>
+                <form class="d-flex justify-content-center flex-wrap my-2" method="post" action="admin/subscribe/store.php">
+                    <div class="my-2"><input class="form-control" type="number" name="phone" placeholder="Whatsapp Number"></div>
+                    <div class="my-2"><button class="btn btn-primary ms-sm-2" type="submit" disabled>Subscribe </button></div>
                 </form>
             </div>
         </div>
