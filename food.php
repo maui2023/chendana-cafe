@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Chendana Cafe</title>
+    <title>Chendana Cafe - Food</title>
     <meta property="og:image" content="assets/img/cendana.jpg">
     <meta name="description" content="Best Relaxing Cafe">
     <meta property="og:type" content="website">
