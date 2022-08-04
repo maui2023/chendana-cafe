@@ -1,31 +1,111 @@
+<?php
+// Initialize the session
+session_start();
+ 
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    header("location: welcome.php");
+    exit;
+}
+ 
+// Include config file
+require_once "config.php";
+ 
+// Define variables and initialize with empty values
+$username = $password = "";
+$username_err = $password_err = $login_err = "";
+ 
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+    // Check if username is empty
+    if(empty(trim($_POST["username"]))){
+        $username_err = "Please enter username.";
+    } else{
+        $username = trim($_POST["username"]);
+    }
+    
+    // Check if password is empty
+    if(empty(trim($_POST["password"]))){
+        $password_err = "Please enter your password.";
+    } else{
+        $password = trim($_POST["password"]);
+    }
+    
+    // Validate credentials
+    if(empty($username_err) && empty($password_err)){
+        // Prepare a select statement
+        $sql = "SELECT id, username, password FROM admin WHERE username = ?";
+        
+        if($stmt = mysqli_prepare($link, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            
+            // Set parameters
+            $param_username = $username;
+            
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                // Store result
+                mysqli_stmt_store_result($stmt);
+                
+                // Check if username exists, if yes then verify password
+                if(mysqli_stmt_num_rows($stmt) == 1){                    
+                    // Bind result variables
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+                    if(mysqli_stmt_fetch($stmt)){
+                        if(password_verify($password, $hashed_password)){
+                            // Password is correct, so start a new session
+                            session_start();
+                            
+                            // Store data in session variables
+                            $_SESSION["loggedin"] = true;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["username"] = $username;                            
+                            
+                            // Redirect user to welcome page
+                            header("location: welcome.php");
+                        } else{
+                            // Password is not valid, display a generic error message
+                            $login_err = "Invalid username or password.";
+                        }
+                    }
+                } else{
+                    // Username doesn't exist, display a generic error message
+                    $login_err = "Invalid username or password.";
+                }
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+    
+    // Close connection
+    mysqli_close($link);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Chendana Cafe - Main</title>
+    <title>Chendana Cafe - Admin</title>
     <meta property="og:image" content="assets/img/cendana.jpg">
     <meta name="description" content="Best Relaxing Cafe">
     <meta property="og:type" content="website">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/css/Features-Large-Icons.css">
-    <link rel="stylesheet" href="assets/css/Hero-Clean.css">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../assets/css/Features-Large-Icons.css">
+    <link rel="stylesheet" href="../assets/css/Hero-Clean.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.css">
-    <link rel="stylesheet" href="assets/css/Simple-Slider.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="icon" type="image/png" href="assets/img/logo.png" />
-    <style>
-    #example1 {
-    border: 2px solid black;
-    padding: 25px;
-    background: url(./assets/img/chendana.jpg);
-    background-repeat: no-repeat;
-    background-size: 100%;
-    }
-    </style>
+    <link rel="stylesheet" href="../assets/css/Simple-Slider.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="icon" type="image/png" href="../assets/img/logo.png" />
 </head>
 
 <body>
@@ -35,52 +115,44 @@
                     </svg></span><span>Chendana-Cafe</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-3">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#">Main</a></li>
-                    <li class="nav-item"><a class="nav-link" href="food.php">Food</a></li>
-                    <li class="nav-item"><a class="nav-link" href="drink.php">Beverage</a></li>
-                    <li class="nav-item"><a class="nav-link" href="about.php">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./">Main</a></li>
+                    <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
                 </ul>
             </div>
         </div>
-    </nav><div id="example1">
+    </nav>
     <div class="container py-4 py-xl-5">
-        <div class="row gy-4 row-cols-2 row-cols-md-4">
-            <div class="col">
-                <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
-                    <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"><i class="fas fa-lock-open"></i></div>
-                    <div class="px-3">
-                        <h2 class="fw-bold mb-0"><span id="demo">24+</span></h2>
-                        <p class="mb-0">Minutes Left</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
-                    <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"><i class="fas fa-chair"></i></div>
-                    <div class="px-3">
-                        <h2 class="fw-bold mb-0">+-<?=(rand(1,8))?></h2>
-                        <p class="mb-0">Free Seats</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
-                    <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"><i class="fas fa-hamburger"></i></div>
-                    <div class="px-3">
-                        <h2 class="fw-bold mb-0">15+</h2>
-                        <p class="mb-0">Food</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="text-center d-flex flex-column justify-content-center align-items-center py-3">
-                    <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-2 bs-icon lg"><i class="fas fa-coffee"></i></div>
-                    <div class="px-3">
-                        <h2 class="fw-bold mb-0">24+</h2>
-                        <p class="mb-0">Beverage</p>
-                    </div>
-                </div>
-            </div>
+        <h1 class="text-center">Administrator</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+        <div class="wrapper">
+				<h2>Login</h2>
+				<p>Fill and Login.</p>
+
+				<?php 
+				if(!empty($login_err)){
+					echo '<div class="alert alert-danger">' . $login_err . '</div>';
+				}        
+				?>
+
+				<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+					<div class="form-group">
+						<label>Nama Samaran</label>
+						<input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
+						<span class="invalid-feedback"><?php echo $username_err; ?></span>
+					</div>    
+					<div class="form-group">
+						<label>Kata Laluan</label>
+						<input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
+						<span class="invalid-feedback"><?php echo $password_err; ?></span>
+					</div><br/>
+					<div class="form-group">
+						<input type="submit" class="btn btn-primary" value="Log Masuk">
+					</div>
+
+				</form>
+			</div>
         </div>
     </div>
     <section class="py-4 py-xl-5">
@@ -120,42 +192,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.js"></script>
     <script src="assets/js/Lightbox-Gallery.js"></script>
     <script src="assets/js/Simple-Slider.js"></script>
-    <?php
-//$tarikh = date("M d, Y h:i:s",strtotime('32 hour'));
-$tarikh = date("M d, Y", strtotime('1 day'));
-$masa = "18:00:00";
-$masanya =  $tarikh .", ".$masa;
-
-?>
-<script>
-// Set the date we're counting down to Jun 26, 2022 02:39:36
-var countDownDate = new Date("<?=$masanya?>").getTime();
-
-// Update the count down every 1 second
-var x = setInterval(function() {
-
-  // Get today's date and time
-  var now = new Date().getTime();
-    
-  // Find the distance between now and the count down date
-  var distance = countDownDate - now;
-    
-  // Time calculations for days, hours, minutes and seconds
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 ));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
-  // Output the result in an element with id="demo"
-  document.getElementById("demo").innerHTML = hours + "+";
-    
-  // If the count down is over, write some text 
-  if (distance < 0) {
-    clearInterval(x);
-    document.getElementById("demo").innerHTML = "OFF";
-  }
-}, 1000);
-</script>
-</body></div>
+</body>
 
 </html>
